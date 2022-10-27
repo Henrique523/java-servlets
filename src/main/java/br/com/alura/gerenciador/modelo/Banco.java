@@ -1,8 +1,9 @@
-package br.com.alura.gerenciador.servlet;
+package br.com.alura.gerenciador.modelo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Banco {
 	
@@ -33,15 +34,10 @@ public class Banco {
 	
 	public void removeEmpresa(Integer id) {
 		
-		Iterator<Empresa> it = empresas.iterator();
+		empresas = empresas.stream()
+				.filter(empresa -> !id.equals(empresa.getId()))
+				.collect(Collectors.toList());
 		
-		while(it.hasNext()) {
-			Empresa empresa = it.next();
-			
-			if (empresa.getId() == id) {
-				empresas.remove(empresa);
-			}
-		}
 	}
 
 	public Empresa buscaEmpresaPeloId(Integer id) {
